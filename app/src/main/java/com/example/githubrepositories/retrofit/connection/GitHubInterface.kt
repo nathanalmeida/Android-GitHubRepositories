@@ -1,10 +1,10 @@
 package com.example.githubrepositories.retrofit.connection
 
+import com.example.githubrepositories.model.Repository
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GitHubInterface {
@@ -27,7 +27,3 @@ interface GitHubInterface {
         }
     }
 }
-
-data class Repository(val items: List<Item>)//, val owner: Owner)
-data class Item(val owner: Owner)
-data class Owner(val login: String)

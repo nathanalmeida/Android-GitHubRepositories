@@ -2,8 +2,8 @@ package com.example.githubrepositories.ui.main
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.githubrepositories.model.Repository
 import com.example.githubrepositories.retrofit.connection.GitHubInterface
-import com.example.githubrepositories.retrofit.connection.Repository
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
