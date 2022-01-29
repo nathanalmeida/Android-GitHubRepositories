@@ -17,6 +17,7 @@ interface GitHubInterface {
 
     companion object {
         const val BASE_URL = "https://api.github.com"
+        //TODO: ver se é Singleton de gitHubInterface
 
         fun create() : GitHubInterface {
             val retrofit = Retrofit.Builder()
