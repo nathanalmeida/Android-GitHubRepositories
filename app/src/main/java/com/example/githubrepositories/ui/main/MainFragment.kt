@@ -1,6 +1,5 @@
 package com.example.githubrepositories.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,15 +14,9 @@ import com.example.githubrepositories.R
 import com.example.githubrepositories.databinding.MainFragmentBinding
 import com.example.githubrepositories.model.Item
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-
-    //TODO: Remove?
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private lateinit var viewDataBinding: MainFragmentBinding
     private val viewModel: MainViewModel by viewModels()
@@ -56,14 +49,13 @@ class MainFragment : Fragment() {
         setUpObservers()
         setupNavigation()
 //        setupRefreshLayout(viewDataBinding.refreshLayout, viewDataBinding.tasksList)
-//        setupNavigation()
 //        setupFab()
     }
 
     private fun setupListAdapter() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
-            listAdapter = RepositoryAdapter()
+            listAdapter = RepositoryAdapter(viewModel)
             viewDataBinding.repositoriesList.adapter = listAdapter
         } else {
             //TODO: Change log
@@ -72,7 +64,6 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        //TODO: Ver se pode alterar o this
         viewModel.getRepositories().observe(viewLifecycleOwner) { repositoriesList ->
             repositoriesList?.let {
                 viewDataBinding.repositoriesList.apply {
