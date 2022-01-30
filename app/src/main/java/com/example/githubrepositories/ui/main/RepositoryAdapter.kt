@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubrepositories.databinding.MainFragmentBinding
+import com.example.githubrepositories.databinding.RepositoryItemBinding
 import com.example.githubrepositories.model.Item
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ class RepositoryAdapter @Inject constructor() : RecyclerView.Adapter<RepositoryA
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
             //TODO: Check this!
-            MainFragmentBinding.inflate(
+            RepositoryItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -26,15 +27,13 @@ class RepositoryAdapter @Inject constructor() : RecyclerView.Adapter<RepositoryA
     override fun getItemCount(): Int = repositories.size
 
     //TODO: Check binding
-    inner class ViewHolder(private val binding: MainFragmentBinding) :
+    inner class ViewHolder(private val binding: RepositoryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(repository: Item) {
             binding.apply {
                 repository.also { item ->
-                    //TODO: Add to view
-                    val a = item
-//                    nameTextview.text = item.owner.login
-//                    capitalTextview.text = capital
+                    nameTextview.text = item.name
+                    authorTextview.text = item.owner.login
                 }
             }
         }

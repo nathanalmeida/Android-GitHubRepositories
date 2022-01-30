@@ -53,6 +53,7 @@ class MainFragment : Fragment() {
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 //        setupSnackbar()
         setupListAdapter()
+        setUpObservers()
 //        setupRefreshLayout(viewDataBinding.refreshLayout, viewDataBinding.tasksList)
 //        setupNavigation()
 //        setupFab()
@@ -64,10 +65,23 @@ class MainFragment : Fragment() {
             listAdapter = RepositoryAdapter()
 //            listAdapter = RepositoryAdapter(viewModel)
             //TODO: Add this
-//            viewDataBinding.tasksList.adapter = listAdapter
+            viewDataBinding.repositoriesList.adapter = listAdapter
         } else {
             //TODO: Change log
             Log.d("nathan", "ViewModel not initialized when attempting to set up adapter.")
+        }
+    }
+
+    private fun setUpObservers() {
+        viewModel.getRepositories().observe(this) { repositoriesList ->
+            repositoriesList?.let {
+                viewDataBinding.repositoriesList.apply {
+                    with(adapter as RepositoryAdapter) {
+                        repositories = it
+                        notifyDataSetChanged()
+                    }
+                }
+            }
         }
     }
 
