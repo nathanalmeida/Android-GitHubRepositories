@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="repositoryItem"
+            type="com.example.githubrepositories.model.Item"  />
+
+        <variable
+            name="viewmodel"
+            type="com.example.githubrepositories.ui.main.MainViewModel"  />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewmodel.openRepositoryDetails(repositoryItem)}">
 
         <TextView
             android:id="@+id/name_textview"

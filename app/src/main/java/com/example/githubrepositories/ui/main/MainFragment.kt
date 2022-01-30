@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.githubrepositories.EventObserver
 import com.example.githubrepositories.R
 import com.example.githubrepositories.databinding.MainFragmentBinding
+import com.example.githubrepositories.model.Item
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,8 +37,6 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        return inflater.inflate(R.layout.main_fragment, container, false)
-
         val root = inflater.inflate(R.layout.main_fragment, container, false)
         viewDataBinding = MainFragmentBinding.bind(root).apply {
             this.viewmodel = viewModel
@@ -50,10 +51,10 @@ class MainFragment : Fragment() {
 
 //        viewModel.start()
 
-        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 //        setupSnackbar()
         setupListAdapter()
         setUpObservers()
+        setupNavigation()
 //        setupRefreshLayout(viewDataBinding.refreshLayout, viewDataBinding.tasksList)
 //        setupNavigation()
 //        setupFab()
@@ -63,8 +64,6 @@ class MainFragment : Fragment() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
             listAdapter = RepositoryAdapter()
-//            listAdapter = RepositoryAdapter(viewModel)
-            //TODO: Add this
             viewDataBinding.repositoriesList.adapter = listAdapter
         } else {
             //TODO: Change log
@@ -73,7 +72,8 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        viewModel.getRepositories().observe(this) { repositoriesList ->
+        //TODO: Ver se pode alterar o this
+        viewModel.getRepositories().observe(viewLifecycleOwner) { repositoriesList ->
             repositoriesList?.let {
                 viewDataBinding.repositoriesList.apply {
                     with(adapter as RepositoryAdapter) {
@@ -84,5 +84,17 @@ class MainFragment : Fragment() {
             }
         }
     }
+
+    private fun setupNavigation() {
+        viewModel.openRepositoryDetailsEvent.observe(viewLifecycleOwner, EventObserver {
+            openTaskDetails(it)
+        })
+    }
+
+    private fun openTaskDetails(repositoryItem: Item) {
+        val action = MainFragmentDirections.actionMainFragmentToRepositoryDetailsFragment(repositoryItem)
+        findNavController().navigate(action)
+    }
+
 
 }

@@ -31,6 +31,9 @@ class RepositoryAdapter @Inject constructor() : RecyclerView.Adapter<RepositoryA
         RecyclerView.ViewHolder(binding.root) {
         fun bind(repository: Item) {
             binding.apply {
+//                root.setOnClickListener {
+//                    repository?.let { item -> item. }
+//                }
                 repository.also { item ->
                     nameTextview.text = item.name
                     authorTextview.text = item.owner.login
