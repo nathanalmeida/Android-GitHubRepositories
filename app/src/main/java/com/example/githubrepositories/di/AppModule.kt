@@ -23,7 +23,6 @@ object AppModule {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    //TODO: Check if newBuider() works
     @Singleton
     @Provides
     fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
