@@ -74,4 +74,6 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
 }

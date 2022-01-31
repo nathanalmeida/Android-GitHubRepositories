@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.githubrepositories.EventObserver
@@ -78,11 +77,11 @@ class MainFragment : Fragment() {
 
     private fun setupNavigation() {
         viewModel.openRepositoryDetailsEvent.observe(viewLifecycleOwner, EventObserver {
-            openTaskDetails(it)
+            openRepositoryDetails(it)
         })
     }
 
-    private fun openTaskDetails(repositoryItem: Item) {
+    private fun openRepositoryDetails(repositoryItem: Item) {
         val action = MainFragmentDirections.actionMainFragmentToRepositoryDetailsFragment(repositoryItem)
         findNavController().navigate(action)
     }
